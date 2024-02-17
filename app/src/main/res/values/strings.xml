@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Gitser</string>
+    <string name="searchbar_hint">Cari user</string>
+    <string name="username">andri kelana saputra</string>
+    <string name="user_not_found">"User not found"</string>
+    <string name="title_activity_user_detail">UserDetailActivity</string>
+    <string name="number">30</string>
+    <string name="follower">%d Follower</string>
+    <string name="following">%d Following</string>
+
+
+    <string name="tab_text_1">Follower</string>
+    <string name="tab_text_2">Following</string>
+
+</resources>
