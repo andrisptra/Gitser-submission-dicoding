@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <group android:menuCategory="container">
+        <item
+            android:id="@+id/menuFavorite"
+            android:icon="@drawable/baseline_favorite_24"
+            android:title="@string/menuFavorite"
+            tools:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/menuDarkMode"
+            android:title="@string/menuDarkmode"
+            android:icon="@drawable/baseline_light_mode_24"
+            tools:showAsAction="never" />
+    </group>
+
+
+</menu>

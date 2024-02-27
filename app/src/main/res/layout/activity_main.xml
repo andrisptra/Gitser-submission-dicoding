@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-
     <com.google.android.material.search.SearchBar
         android:id="@+id/search_bar"
         android:layout_width="0dp"

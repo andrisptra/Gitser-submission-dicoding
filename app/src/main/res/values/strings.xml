@@ -4,12 +4,16 @@
     <string name="username">andri kelana saputra</string>
     <string name="user_not_found">"User not found"</string>
     <string name="title_activity_user_detail">UserDetailActivity</string>
-    <string name="number">30</string>
     <string name="follower">%d Follower</string>
     <string name="following">%d Following</string>
 
-
     <string name="tab_text_1">Follower</string>
     <string name="tab_text_2">Following</string>
+    <string name="menuFavorite">Favorite</string>
+    <string name="menuDarkmode">Dark Mode</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="favorite_button">favorite button</string>
+    <string name="userProfile">Detail User</string>
+    <string name="menuShare">Share</string>
 
 </resources>

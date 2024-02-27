@@ -1,9 +1,11 @@
 package com.example.gitser.ui.followFragment
 
+import android.content.res.Resources
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gitser.R
 import com.example.gitser.data.response.ItemsItem
 import com.example.gitser.data.retrofit.ApiConfig
 import retrofit2.Call
@@ -18,6 +20,9 @@ class FollowerViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _message = MutableLiveData<Boolean>()
+    val message: LiveData<Boolean> = _message
+
     fun getFollowerList(username: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getFollowers(username)
@@ -27,7 +32,10 @@ class FollowerViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listUser.value = response.body()
+                    val responseBody = response.body()
+                    _listUser.value = responseBody!!
+                    if (responseBody.isEmpty())
+                        _message.value = true
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -37,7 +45,6 @@ class FollowerViewModel : ViewModel() {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }
-
         })
     }
 
@@ -50,7 +57,10 @@ class FollowerViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listUser.value = response.body()
+                    val responseBody = response.body()
+                    _listUser.value = responseBody!!
+                    if (responseBody.isEmpty())
+                        _message.value = true
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -62,6 +72,7 @@ class FollowerViewModel : ViewModel() {
             }
         })
     }
+
 
     companion object {
         private const val TAG = "FollowerViewModel"

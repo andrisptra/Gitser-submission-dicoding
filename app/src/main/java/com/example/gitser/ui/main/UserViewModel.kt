@@ -22,6 +22,9 @@ class UserViewModel : ViewModel() {
     private val _message = MutableLiveData<Boolean>()
     val message: LiveData<Boolean> = _message
 
+    private val _errorResponse = MutableLiveData<String>()
+    val errorResponse: LiveData<String> = _errorResponse
+
     fun searchUser(key: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getSearchUser(key)
@@ -33,6 +36,7 @@ class UserViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
+                        _message.value = false
                         _listUser.value = responseBody.items
                     }
                     if (responseBody?.totalCount == 0) {
@@ -40,12 +44,14 @@ class UserViewModel : ViewModel() {
                     }
 
                 } else {
+                    _errorResponse.value = response.message()
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<ResponseGithubSearch>, t: Throwable) {
                 _isLoading.value = false
+                _errorResponse.value = t.message
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })

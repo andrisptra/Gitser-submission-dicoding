@@ -1,4 +1,4 @@
-package com.example.gitser.ui.main
+package com.example.gitser.ui.favoriteUser
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,9 +9,11 @@ import com.bumptech.glide.Glide
 import com.example.gitser.data.response.ItemsItem
 import com.example.gitser.databinding.ItemUserListBinding
 
-class UserAdapter : ListAdapter<ItemsItem, UserAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FavoriteUserAdapter :
+    ListAdapter<ItemsItem, FavoriteUserAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
             ItemUserListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,9 +32,7 @@ class UserAdapter : ListAdapter<ItemsItem, UserAdapter.MyViewHolder>(DIFF_CALLBA
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: ItemsItem) {
             binding.userName.text = user.login
-            Glide.with(binding.root)
-                .load(user.avatarUrl)
-                .into(binding.userImage)
+            Glide.with(binding.root).load(user.avatarUrl).into(binding.userImage)
         }
     }
 
@@ -53,9 +53,6 @@ class UserAdapter : ListAdapter<ItemsItem, UserAdapter.MyViewHolder>(DIFF_CALLBA
             override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
-
-
 }

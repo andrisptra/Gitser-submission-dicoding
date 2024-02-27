@@ -1,33 +1,36 @@
 package com.example.gitser.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.example.gitser.data.database.FavUserDao
-import com.example.gitser.data.database.FavUserDatabase
 import com.example.gitser.data.database.FavUserEntity
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import com.example.gitser.helper.AppExecutors
 
-class FavUserRepository(application: Application) {
-    private val mFavUserDao: FavUserDao
-    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
-
-    init {
-        val db = FavUserDatabase.getDatabase(application)
-        mFavUserDao = db.favUserDao()
-    }
-
-    fun getAllFavUser(): LiveData<List<FavUserEntity>> =
-        mFavUserDao.getAllFavUserList()
+class FavUserRepository(
+    private val favUserDao: FavUserDao,
+    private val appExecutors: AppExecutors
+) {
+    fun getAllFavUser(): LiveData<List<FavUserEntity>> = favUserDao.getAllFavUserList()
 
     fun getFavUserByUsername(username: String): LiveData<FavUserEntity> =
-        mFavUserDao.getFavUserByUsername(username)
+        favUserDao.getFavUserByUsername(username)
 
     fun insert(user: FavUserEntity) {
-        executorService.execute { mFavUserDao.insert(user) }
+        appExecutors.diskIO.execute { favUserDao.insert(user) }
     }
 
     fun delete(user: FavUserEntity) {
-        executorService.execute { mFavUserDao.delete(user) }
+        appExecutors.diskIO.execute { favUserDao.delete(user) }
     }
+
+    companion object {
+        @Volatile
+        private var instance: FavUserRepository? = null
+        fun getInstance(
+            favUserDao: FavUserDao,
+            appExecutors: AppExecutors
+        ): FavUserRepository = instance ?: synchronized(this) {
+            instance ?: FavUserRepository(favUserDao, appExecutors)
+        }.also { instance = it }
+    }
+
 }

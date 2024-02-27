@@ -10,12 +10,6 @@ data class DetailUserResponse(
     @field:SerializedName("login")
     val login: String,
 
-    @field:SerializedName("blog")
-    val blog: String,
-
-    @field:SerializedName("starred_url")
-    val starredUrl: String,
-
     @field:SerializedName("followers_url")
     val followersUrl: String,
 
@@ -31,7 +25,4 @@ data class DetailUserResponse(
     @field:SerializedName("name")
     val name: String,
 
-    @field:SerializedName("location")
-    val location: String,
-
-    )
+)
